@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b7ef89ca20ec4cdb8369b40c81616a5e" Name="Diagram1" >
+        <EntityTypeShape EntityType="DgtModel.Conductor" Width="1.5" PointX="3.875" PointY="0.5" />
+        <EntityTypeShape EntityType="DgtModel.Vehiculo" Width="1.5" PointX="3.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DgtModel.TipoInfraccion" Width="1.5" PointX="6.625" PointY="0.5" />
+        <EntityTypeShape EntityType="DgtModel.Infraccion" Width="1.5" PointX="6.625" PointY="3.375" />
+        <AssociationConnector Association="DgtModel.ConductorVehiculo" />
+        <AssociationConnector Association="DgtModel.ConductorInfraccion" />
+        <AssociationConnector Association="DgtModel.VehiculoInfraccion" />
+        <AssociationConnector Association="DgtModel.TipoInfraccionInfraccion" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

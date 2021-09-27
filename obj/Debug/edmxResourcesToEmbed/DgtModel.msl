@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DgtModelStoreContainer" CdmEntityContainer="DgtModelContainer">
+    <EntitySetMapping Name="Conductor">
+      <EntityTypeMapping TypeName="IsTypeOf(DgtModel.Conductor)">
+        <MappingFragment StoreEntitySet="Conductor">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+          <ScalarProperty Name="Puntos" ColumnName="Puntos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehiculo">
+      <EntityTypeMapping TypeName="IsTypeOf(DgtModel.Vehiculo)">
+        <MappingFragment StoreEntitySet="Vehiculo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Matricula" ColumnName="Matricula" />
+          <ScalarProperty Name="Marca" ColumnName="Marca" />
+          <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoInfraccion">
+      <EntityTypeMapping TypeName="IsTypeOf(DgtModel.TipoInfraccion)">
+        <MappingFragment StoreEntitySet="TipoInfraccion">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Identificador" ColumnName="Identificador" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="PuntosDescuento" ColumnName="PuntosDescuento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Infraccion">
+      <EntityTypeMapping TypeName="IsTypeOf(DgtModel.Infraccion)">
+        <MappingFragment StoreEntitySet="Infraccion">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Identificador" ColumnName="Identificador" />
+          <ScalarProperty Name="FechaYHora" ColumnName="FechaYHora" />
+          <ScalarProperty Name="ConductorId" ColumnName="ConductorId" />
+          <ScalarProperty Name="VehiculoId" ColumnName="VehiculoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ConductorVehiculo" TypeName="DgtModel.ConductorVehiculo" StoreEntitySet="ConductorVehiculo">
+      <EndProperty Name="Conductor">
+        <ScalarProperty Name="Id" ColumnName="Conductor_Id" />
+      </EndProperty>
+      <EndProperty Name="Vehiculo">
+        <ScalarProperty Name="Id" ColumnName="Vehiculo_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TipoInfraccionInfraccion" TypeName="DgtModel.TipoInfraccionInfraccion" StoreEntitySet="Infraccion">
+      <EndProperty Name="TipoInfraccion">
+        <ScalarProperty Name="Id" ColumnName="TipoInfraccion_Id" />
+      </EndProperty>
+      <EndProperty Name="Infraccion">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

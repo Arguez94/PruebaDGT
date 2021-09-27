@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DgtModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DgtModelStoreContainer">
+    <EntitySet Name="Conductor" EntityType="DgtModel.Store.Conductor" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Vehiculo" EntityType="DgtModel.Store.Vehiculo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TipoInfraccion" EntityType="DgtModel.Store.TipoInfraccion" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Infraccion" EntityType="DgtModel.Store.Infraccion" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ConductorVehiculo" EntityType="DgtModel.Store.ConductorVehiculo" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_ConductorVehiculo_Conductor" Association="DgtModel.Store.FK_ConductorVehiculo_Conductor">
+      <End Role="Conductor" EntitySet="Conductor" />
+      <End Role="ConductorVehiculo" EntitySet="ConductorVehiculo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConductorVehiculo_Vehiculo" Association="DgtModel.Store.FK_ConductorVehiculo_Vehiculo">
+      <End Role="Vehiculo" EntitySet="Vehiculo" />
+      <End Role="ConductorVehiculo" EntitySet="ConductorVehiculo" />
+    </AssociationSet>
+    <AssociationSet Name="ConductorInfraccion" Association="DgtModel.Store.ConductorInfraccion">
+      <End Role="Conductor" EntitySet="Conductor" />
+      <End Role="Infraccion" EntitySet="Infraccion" />
+    </AssociationSet>
+    <AssociationSet Name="VehiculoInfraccion" Association="DgtModel.Store.VehiculoInfraccion">
+      <End Role="Vehiculo" EntitySet="Vehiculo" />
+      <End Role="Infraccion" EntitySet="Infraccion" />
+    </AssociationSet>
+    <AssociationSet Name="TipoInfraccionInfraccion" Association="DgtModel.Store.TipoInfraccionInfraccion">
+      <End Role="TipoInfraccion" EntitySet="TipoInfraccion" />
+      <End Role="Infraccion" EntitySet="Infraccion" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Conductor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DNI" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Apellidos" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Puntos" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Vehiculo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Matricula" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Marca" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Modelo" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TipoInfraccion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Identificador" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PuntosDescuento" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Infraccion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Identificador" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FechaYHora" Type="datetime" Nullable="false" />
+    <Property Name="ConductorId" Type="int" Nullable="false" />
+    <Property Name="VehiculoId" Type="int" Nullable="false" />
+    <Property Name="TipoInfraccion_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ConductorVehiculo">
+    <Key>
+      <PropertyRef Name="Conductor_Id" />
+      <PropertyRef Name="Vehiculo_Id" />
+    </Key>
+    <Property Name="Conductor_Id" Type="int" Nullable="false" />
+    <Property Name="Vehiculo_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ConductorInfraccion">
+    <End Role="Conductor" Type="DgtModel.Store.Conductor" Multiplicity="1" />
+    <End Role="Infraccion" Type="DgtModel.Store.Infraccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Conductor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Infraccion">
+        <PropertyRef Name="ConductorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VehiculoInfraccion">
+    <End Role="Vehiculo" Type="DgtModel.Store.Vehiculo" Multiplicity="1" />
+    <End Role="Infraccion" Type="DgtModel.Store.Infraccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehiculo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Infraccion">
+        <PropertyRef Name="VehiculoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TipoInfraccionInfraccion">
+    <End Role="TipoInfraccion" Type="DgtModel.Store.TipoInfraccion" Multiplicity="1" />
+    <End Role="Infraccion" Type="DgtModel.Store.Infraccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoInfraccion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Infraccion">
+        <PropertyRef Name="TipoInfraccion_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConductorVehiculo_Conductor">
+    <End Role="Conductor" Type="DgtModel.Store.Conductor" Multiplicity="1" />
+    <End Role="ConductorVehiculo" Type="DgtModel.Store.ConductorVehiculo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Conductor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ConductorVehiculo">
+        <PropertyRef Name="Conductor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConductorVehiculo_Vehiculo">
+    <End Role="ConductorVehiculo" Type="DgtModel.Store.ConductorVehiculo" Multiplicity="*" />
+    <End Role="Vehiculo" Type="DgtModel.Store.Vehiculo" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Vehiculo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ConductorVehiculo">
+        <PropertyRef Name="Vehiculo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DgtModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DgtModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Conductor" EntityType="DgtModel.Conductor" />
+          <EntitySet Name="Vehiculo" EntityType="DgtModel.Vehiculo" />
+          <EntitySet Name="TipoInfraccion" EntityType="DgtModel.TipoInfraccion" />
+          <EntitySet Name="Infraccion" EntityType="DgtModel.Infraccion" />
+          <AssociationSet Name="ConductorVehiculo" Association="DgtModel.ConductorVehiculo">
+            <End Role="Conductor" EntitySet="Conductor" />
+            <End Role="Vehiculo" EntitySet="Vehiculo" />
+          </AssociationSet>
+          <AssociationSet Name="ConductorInfraccion" Association="DgtModel.ConductorInfraccion">
+            <End Role="Conductor" EntitySet="Conductor" />
+            <End Role="Infraccion" EntitySet="Infraccion" />
+          </AssociationSet>
+          <AssociationSet Name="VehiculoInfraccion" Association="DgtModel.VehiculoInfraccion">
+            <End Role="Vehiculo" EntitySet="Vehiculo" />
+            <End Role="Infraccion" EntitySet="Infraccion" />
+          </AssociationSet>
+          <AssociationSet Name="TipoInfraccionInfraccion" Association="DgtModel.TipoInfraccionInfraccion">
+            <End Role="TipoInfraccion" EntitySet="TipoInfraccion" />
+            <End Role="Infraccion" EntitySet="Infraccion" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Conductor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DNI" Type="String" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Apellidos" Type="String" Nullable="false" />
+          <Property Name="Puntos" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Vehiculo" Relationship="DgtModel.ConductorVehiculo" FromRole="Conductor" ToRole="Vehiculo" />
+          <NavigationProperty Name="Infraccion" Relationship="DgtModel.ConductorInfraccion" FromRole="Conductor" ToRole="Infraccion" />
+        </EntityType>
+        <EntityType Name="Vehiculo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Matricula" Type="String" Nullable="false" />
+          <Property Name="Marca" Type="String" Nullable="false" />
+          <Property Name="Modelo" Type="String" Nullable="false" />
+          <NavigationProperty Name="Conductor" Relationship="DgtModel.ConductorVehiculo" FromRole="Vehiculo" ToRole="Conductor" />
+          <NavigationProperty Name="Infraccion" Relationship="DgtModel.VehiculoInfraccion" FromRole="Vehiculo" ToRole="Infraccion" />
+        </EntityType>
+        <EntityType Name="TipoInfraccion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Identificador" Type="String" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="PuntosDescuento" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Infraccion" Relationship="DgtModel.TipoInfraccionInfraccion" FromRole="TipoInfraccion" ToRole="Infraccion" />
+        </EntityType>
+        <EntityType Name="Infraccion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Identificador" Type="String" Nullable="false" />
+          <Property Name="FechaYHora" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Conductor" Relationship="DgtModel.ConductorInfraccion" FromRole="Infraccion" ToRole="Conductor" />
+          <Property Name="ConductorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Vehiculo" Relationship="DgtModel.VehiculoInfraccion" FromRole="Infraccion" ToRole="Vehiculo" />
+          <Property Name="VehiculoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TipoInfraccion" Relationship="DgtModel.TipoInfraccionInfraccion" FromRole="Infraccion" ToRole="TipoInfraccion" />
+        </EntityType>
+        <Association Name="ConductorVehiculo">
+          <End Type="DgtModel.Conductor" Role="Conductor" Multiplicity="*" />
+          <End Type="DgtModel.Vehiculo" Role="Vehiculo" Multiplicity="*" />
+        </Association>
+        <Association Name="ConductorInfraccion">
+          <End Type="DgtModel.Conductor" Role="Conductor" Multiplicity="1" />
+          <End Type="DgtModel.Infraccion" Role="Infraccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conductor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Infraccion">
+              <PropertyRef Name="ConductorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VehiculoInfraccion">
+          <End Type="DgtModel.Vehiculo" Role="Vehiculo" Multiplicity="1" />
+          <End Type="DgtModel.Infraccion" Role="Infraccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Infraccion">
+              <PropertyRef Name="VehiculoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TipoInfraccionInfraccion">
+          <End Type="DgtModel.TipoInfraccion" Role="TipoInfraccion" Multiplicity="1" />
+          <End Type="DgtModel.Infraccion" Role="Infraccion" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DgtModelStoreContainer" CdmEntityContainer="DgtModelContainer">
+    <EntitySetMapping Name="Conductor">
+      <EntityTypeMapping TypeName="IsTypeOf(DgtModel.Conductor)">
+        <MappingFragment StoreEntitySet="Conductor">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+          <ScalarProperty Name="Puntos" ColumnName="Puntos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehiculo">
+      <EntityTypeMapping TypeName="IsTypeOf(DgtModel.Vehiculo)">
+        <MappingFragment StoreEntitySet="Vehiculo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Matricula" ColumnName="Matricula" />
+          <ScalarProperty Name="Marca" ColumnName="Marca" />
+          <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoInfraccion">
+      <EntityTypeMapping TypeName="IsTypeOf(DgtModel.TipoInfraccion)">
+        <MappingFragment StoreEntitySet="TipoInfraccion">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Identificador" ColumnName="Identificador" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="PuntosDescuento" ColumnName="PuntosDescuento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Infraccion">
+      <EntityTypeMapping TypeName="IsTypeOf(DgtModel.Infraccion)">
+        <MappingFragment StoreEntitySet="Infraccion">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Identificador" ColumnName="Identificador" />
+          <ScalarProperty Name="FechaYHora" ColumnName="FechaYHora" />
+          <ScalarProperty Name="ConductorId" ColumnName="ConductorId" />
+          <ScalarProperty Name="VehiculoId" ColumnName="VehiculoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ConductorVehiculo" TypeName="DgtModel.ConductorVehiculo" StoreEntitySet="ConductorVehiculo">
+      <EndProperty Name="Conductor">
+        <ScalarProperty Name="Id" ColumnName="Conductor_Id" />
+      </EndProperty>
+      <EndProperty Name="Vehiculo">
+        <ScalarProperty Name="Id" ColumnName="Vehiculo_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TipoInfraccionInfraccion" TypeName="DgtModel.TipoInfraccionInfraccion" StoreEntitySet="Infraccion">
+      <EndProperty Name="TipoInfraccion">
+        <ScalarProperty Name="Id" ColumnName="TipoInfraccion_Id" />
+      </EndProperty>
+      <EndProperty Name="Infraccion">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
