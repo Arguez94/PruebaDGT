@@ -12,7 +12,8 @@ namespace PruebaInnovation
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using System.Data.Entity.ModelConfiguration.Conventions;
+
     public partial class DgtModelContainer : DbContext
     {
         public DgtModelContainer()
@@ -22,6 +23,7 @@ namespace PruebaInnovation
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             throw new UnintentionalCodeFirstException();
         }
     

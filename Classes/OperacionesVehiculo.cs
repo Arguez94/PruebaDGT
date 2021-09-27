@@ -8,7 +8,12 @@ namespace PruebaInnovation.Classes
 {
     public class OperacionesVehiculo : IOperacionesVehiculo
     {
-        DgtContext db = new DgtContext();
+        private DgtContext db;
+        public OperacionesVehiculo(DgtContext db)
+        {
+            this.db = db != null ? db : new DgtContext();
+        }
+
         //Se implementa el método Agregar vehículo de la interfaz, con los parámetros indicados en el enunciado
         public void AgregarVehiculo(string matricula, string marca, string modelo, string dniConductor)
         {
@@ -17,15 +22,13 @@ namespace PruebaInnovation.Classes
                 //Primero se comprueba si el vehículo existe o no
                 if (Utils.ExisteVehiculo(matricula, db))
                 {
-                    Console.WriteLine("ERROR: El vehículo a agregar ya existe");
-                    return;
+                    throw new Exception("ERROR: El vehículo a agregar ya existe");
                 }
 
                 //Luego se comprueba la existencia del conductor, utilizando el método de la clase correspondiente
-                if (Utils.ExisteConductor(dniConductor, db))
+                if (!Utils.ExisteConductor(dniConductor, db))
                 {
-                    Console.WriteLine("ERROR: El conductor a agregar no existe");
-                    return;
+                    throw new Exception("ERROR: El conductor a agregar no existe");
                 }
 
                 //Una vez hechas las comprobaciones, se consulta el conductor, se crea el vehículo, se asocian y se guarda en el almacén de datos
@@ -46,9 +49,15 @@ namespace PruebaInnovation.Classes
             }
             catch (Exception e)
             {
-                Console.WriteLine("Se ha producido el siguiente error durante la operación de creación de vehículo: " + e.Message);
+                throw new Exception("Se ha producido el siguiente error durante la operación de creación de vehículo: " + e.Message);
             }
 
+        }
+
+        //Método para obtener un vehículo por su matrícula
+        public Vehiculo GetVehiculo(string matricula)
+        {
+           return db.Vehiculo.FirstOrDefault(w => w.Matricula == matricula);
         }
 
         //Método para controlar la asociación de vehículo y conductor
@@ -66,21 +75,19 @@ namespace PruebaInnovation.Classes
                 }
                 else
                 {
-                    Console.WriteLine("El conductor ya tiene 10 vehículos o mas o ya existe como conductor habitual en este vehículo");
-                    return false;
+                    throw new Exception("El conductor ya tiene 10 vehículos o mas o ya existe como conductor habitual en este vehículo");
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Ha ocurrido un error al asociar el conductor al vehículo: " + e.Message);
-                return false;
+                throw new Exception("Ha ocurrido un error al asociar el conductor al vehículo: " + e.Message);
             }
         }
 
         //Método para comprobar si el número de vehículos del conductor es menor a 10. 
         public bool ComprobarVehiculosConductor(Conductor conductor)
         {
-            return db.Vehiculo.Where(w => w.Conductor.Contains(conductor)).Count() < 10;
+            return conductor.Vehiculo.Count() < 10;
         }
     }
 }

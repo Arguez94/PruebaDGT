@@ -31,6 +31,10 @@ namespace PruebaInnovation.Classes
             return DataStorage.TiposInfraccion.Any(a => a.Identificador == identificador);
         }
 
+        public static bool ComprobarAtributoString(string atributo)
+        {
+            return atributo != null && atributo != String.Empty;
+        }
 
     }
 }

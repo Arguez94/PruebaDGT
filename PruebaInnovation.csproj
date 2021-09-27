@@ -174,8 +174,11 @@
     <Compile Include="Conductor.cs">
       <DependentUpon>DgtModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Api\ConductorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Api\InfraccionController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\Api\VehiculoController.cs" />
     <Compile Include="DgtContext.cs" />
     <Compile Include="DgtModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -281,6 +284,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\ConductorApi\" />
+    <Folder Include="Views\InfraccionApi\" />
+    <Folder Include="Views\VehiculoApi\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -10,5 +10,7 @@ namespace PruebaInnovation.Interfaces
     {
         //Operación para el apartado 2: Añadir nuevo vehículo al sistema
         void AgregarVehiculo(string matricula, string marca, string modelo, string dniConductor);
+
+        Vehiculo GetVehiculo(string matricula);
     }
 }

@@ -20,9 +20,11 @@ namespace PruebaInnovation
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Conductor>()
+                .ToTable("Conductor")
                 .HasMany(e => e.Infraccion)
                 .WithRequired(e => e.Conductor)
                 .WillCascadeOnDelete(false);
+ 
 
             modelBuilder.Entity<Conductor>()
                 .HasMany(e => e.Vehiculo)
@@ -30,15 +32,20 @@ namespace PruebaInnovation
                 .Map(m => m.ToTable("ConductorVehiculo"));
 
             modelBuilder.Entity<TipoInfraccion>()
+                .ToTable("TipoInfraccion")
                 .HasMany(e => e.Infraccion)
                 .WithRequired(e => e.TipoInfraccion)
                 //.HasForeignKey(e => e.TipoInfraccion_Id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Vehiculo>()
+                .ToTable("Vehiculo")
                 .HasMany(e => e.Infraccion)
                 .WithRequired(e => e.Vehiculo)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Infraccion>()
+                .Map(m => m.ToTable("Infraccion"));
         }
     }
 }
