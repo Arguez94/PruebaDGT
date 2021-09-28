@@ -38,6 +38,8 @@ namespace PruebaInnovation.Classes
                 nuevoVehiculo.Marca = marca;
                 nuevoVehiculo.Modelo = modelo;
 
+                if(!ValidarModeloVehiculo(nuevoVehiculo)) throw new Exception("El modelo introducido no es válido");
+
                 //Aquí podría crearse el vehículo directamente aunque no tuviese conductor asociado, pero dependería de los requerimientos
                 //En este caso bloqueamos la creación del objeto si no hay conductor asociado
                 if (AsociarConductor(nuevoVehiculo, conductor))
@@ -88,6 +90,14 @@ namespace PruebaInnovation.Classes
         public bool ComprobarVehiculosConductor(Conductor conductor)
         {
             return conductor.Vehiculo.Count() < 10;
+        }
+
+        //Función para comprobar que el modelo es correcto
+        public bool ValidarModeloVehiculo(Vehiculo vehiculo)
+        {
+            return Utils.ComprobarAtributoString(vehiculo.Marca)
+                && Utils.ComprobarAtributoString(vehiculo.Matricula)
+                && Utils.ComprobarAtributoString(vehiculo.Modelo);
         }
     }
 }

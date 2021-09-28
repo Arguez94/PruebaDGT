@@ -45,7 +45,7 @@ namespace PruebaInnovation
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Infraccion>()
-                .Map(m => m.ToTable("Infraccion"));
+                .ToTable("Infraccion");
         }
     }
 }

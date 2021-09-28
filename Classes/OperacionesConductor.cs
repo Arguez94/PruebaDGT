@@ -55,7 +55,8 @@ namespace PruebaInnovation.Classes
             return db.Conductor.OrderByDescending(o => o.Puntos).Take(n).ToList();
         }
 
-       public bool ValidarModeloConductor(Conductor conductor)
+        //Función para comprobar que el modelo es correcto
+        public bool ValidarModeloConductor(Conductor conductor)
        {
             return Utils.ComprobarAtributoString(conductor.DNI)
                 && Utils.ComprobarAtributoString(conductor.Nombre)

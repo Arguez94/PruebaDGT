@@ -11,7 +11,6 @@ namespace PruebaInnovation.Interfaces
 
         //Operación para el apartado 7: Consultar top n conductores
         List<Conductor> ObtenerTopNConductores(int n);
-
         Conductor GetConductor(string dni);
     }
 }

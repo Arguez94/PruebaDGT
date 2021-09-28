@@ -9,6 +9,7 @@
 
 namespace PruebaInnovation
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -20,8 +21,13 @@ namespace PruebaInnovation
         public int ConductorId { get; set; }
         public int VehiculoId { get; set; }
     
+        [JsonIgnore]
         public virtual Conductor Conductor { get; set; }
+
+        [JsonIgnore]
         public virtual Vehiculo Vehiculo { get; set; }
+
+        [JsonIgnore]
         public virtual TipoInfraccion TipoInfraccion { get; set; }
     }
 }

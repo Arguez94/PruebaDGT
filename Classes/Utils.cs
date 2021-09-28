@@ -22,18 +22,18 @@ namespace PruebaInnovation.Classes
         //Función para comprobar si la infracción ya existe, en base a su id
         public static bool ExisteInfraccion(string identificador, DgtContext db)
         {
-            return DataStorage.Infracciones.Any(a => a.Identificador == identificador);
+            return db.Infraccion.Any(a => a.Identificador == identificador);
         }
 
         //Función para comprobar si el tipo de infracción ya existe, en base a su id
         public static bool ExisteTipoInfraccion(string identificador, DgtContext db)
         {
-            return DataStorage.TiposInfraccion.Any(a => a.Identificador == identificador);
+            return db.TipoInfraccion.Any(a => a.Identificador == identificador);
         }
 
         public static bool ComprobarAtributoString(string atributo)
         {
-            return atributo != null && atributo != String.Empty;
+            return atributo != null && atributo != string.Empty;
         }
 
     }
